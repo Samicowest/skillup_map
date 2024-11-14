@@ -1,3 +1,66 @@
+// Data for travels
+const travelData = [
+  { place: "SEET", status: "success" },
+  { place: "SAAT", status: "canceled" },
+  { place: "SOES", status: "success" },
+  { place: "SENATE", status: "success" },
+  { place: "ACCESS BANK", status: "canceled" },
+];
+
+// HTML elements
+const successfulTravelsElement = document.getElementById("successful-travels");
+const canceledTravelsElement = document.getElementById("canceled-travels");
+const travelHistoryElement = document.getElementById("travel-history");
+
+// Counters
+let successfulTravels = 0;
+let canceledTravels = 0;
+
+// Populate history and count travels
+travelData.forEach((travel) => {
+  // Create history item
+  const travelItem = document.createElement("div");
+  travelItem.classList.add("travel-item");
+  travelItem.innerHTML = `<strong>${travel.place}</strong> - <span class="${travel.status}">${travel.status}</span>`;
+
+  // Append to history section
+  travelHistoryElement.appendChild(travelItem);
+
+  // Update counts
+  if (travel.status === "success") {
+    successfulTravels++;
+  } else {
+    canceledTravels++;
+  }
+});
+
+// Display travel counts
+successfulTravelsElement.textContent = successfulTravels;
+canceledTravelsElement.textContent = canceledTravels;
+
+// Chart setup
+const ctx = document.getElementById("travelChart").getContext("2d");
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["Successful Travels", "Canceled Travels"],
+    datasets: [
+      {
+        label: "Number of Travels",
+        data: [successfulTravels, canceledTravels],
+        backgroundColor: ["#4CAF50", "#FF5252"],
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: { beginAtZero: true },
+    },
+  },
+});
+
+//
+
 const menu = document.getElementById("menu");
 const close = document.getElementById("close");
 const navbar = document.getElementById("navbar");
@@ -20,43 +83,6 @@ document.addEventListener("click", (event) => {
   if (!insideNav.classList.contains(event.target)) {
     hideNavbar();
   }
-});
-
-// swiper section
-
-document.addEventListener("DOMContentLoaded", function () {
-  var swiper = new Swiper(".mySwiper", {
-    // slidesPerView: 3,
-    spaceBetween: 30,
-    loop: true,
-
-    autoplay: {
-      delay: 6000,
-      disableOnInteraction: false,
-    },
-    breakpoints: {
-      320: {
-        // screens >= 320px
-        slidesPerView: 1,
-        spaceBetween: 10,
-      },
-      640: {
-        // screens >= 640px
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      768: {
-        // screens >= 768px
-        slidesPerView: 3,
-        spaceBetween: 30,
-      },
-      1024: {
-        // screens >= 1024px
-        slidesPerView: 4,
-        spaceBetween: 40,
-      },
-    },
-  });
 });
 
 // location
